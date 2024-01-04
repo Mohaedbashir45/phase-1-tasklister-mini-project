@@ -1,28 +1,40 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Flatiron Task Lister</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-  <div id="main-content">
-    <h1>Task Lister Lite™️</h1>
-
-    <form id="create-task-form" action="" method="POST">
-      <label for="new-task-description">Task description:</label>
-      <input type="text" id="new-task-description" name="new-task-description" placeholder="description">
-      <input type="submit" value="Create New Task">
-    </form>
-
-    <div id="list">
-      <h2>My Todos</h2>
-      <ul id="tasks">
-      </ul>
-    </div>
+    <ul id="tasks"></ul>
 
     <script src="./src/index.js"></script>
-  </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // your code here
+            document.querySelector('form').addEventListener('submit', (m) => {
+                m.preventDefault();
+                const newTask = document.getElementById("new-task-description").value;
+                console.log(newTask);
+                buildTask(newTask);
+            });
+        });
 
+        function buildTask(task) {
+            const li = document.createElement("li");
+            li.textContent = task;
+            const button = document.createElement("button");
+            button.addEventListener('click', handleDelete);
+            button.textContent = 'X';
+
+            li.appendChild(button);
+            const theList = document.querySelector('#tasks');
+            theList.appendChild(li);
+        }
+
+        function handleDelete(m) {
+            m.target.parentNode.remove();
+        }
+    </script>
 </body>
 </html>
